@@ -4,6 +4,13 @@ date:
 es.
 testo:
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+#include <string.h>
+#define DIM_RIGA 200
 #define NUM_RIGHE 20000
 
 typedef struct{
@@ -14,13 +21,6 @@ typedef struct{
     char* disponibilita;
 }film;
 
-void cercaAnno(film array_film[], int anno, int counter){
-    for(int k = 0; k < counter; k++){
-        if(array_film[k].anno == anno)                
-            printf("%d %s %s %d %s", array_film[k].num, array_film[k].titolo, array_film[k].genere, array_film[k].anno, array_film[k].disponibilita);
-    }
-}
-
 int main(){
     char filename[] = "listaFilm.csv";
     char riga[DIM_RIGA];
@@ -28,7 +28,6 @@ int main(){
     char* campo; //variabile per leggere i campi di una riga
     film array_film[NUM_RIGHE];
     int counter = 0;
-    int anno;
 
     fp = fopen(filename, "r");
 
@@ -56,10 +55,9 @@ int main(){
             counter++;
         }
 
-        printf("inserisci un anno: ");
-        scanf("%d", &anno);
-
-        cercaAnno(array_film, anno, counter);
+        for(int k = 0; k < counter; k++){
+            printf("%d %s %s %d %s", array_film[k].num, array_film[k].titolo, array_film[k].genere, array_film[k].anno, array_film[k].disponibilita);
+        }
     }
 
     return 0;
