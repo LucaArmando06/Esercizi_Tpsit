@@ -48,8 +48,9 @@ void caricaFilm(film array_film[], char filename[], int nRighe){
         printf("il file non esiste");
         exit(1); //esce dal programma
     } else {
-        for(film *p = array_film; p < array_film + nRighe; p++){  // fgets() per leggere tutta la linea
-            campo = strtok(riga, ",");  //strtok() per spezzare i campi
+        for(film *p = array_film; p < array_film + nRighe; p++){  
+            fgets(riga, DIM_RIGA, fp); // fgets() per leggere tutta la linea
+            campo = strtok(riga, ","); //strtok() per spezzare i campi
             p->num = atoi(campo);  //atoi() converte ad intero
 
             campo = strtok(NULL, ",");

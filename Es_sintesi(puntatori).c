@@ -47,6 +47,7 @@ void caricaPersone(Persona persone[], char filename[], int nRighe){
         printf("errore nell'apertura del file");
     } else {
         for(Persona *p = persone; p < persone + nRighe; p++){  
+            fgets(riga, DIM_RIGA, fp);
             campo = strtok(riga, " ");  
             p->cognome = strdup(campo); 
 
