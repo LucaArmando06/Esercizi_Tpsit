@@ -37,9 +37,8 @@ int contaRighe(Persona persone[], char filename[]){
     return cont;
 }
 
-void caricaPersone(Persona persone[], char filename[]){
+void caricaPersone(Persona persone[], char filename[], int nRighe){
     FILE *fp;
-    int cont = 0;
     char* campo; 
     char riga[DIM_RIGA];
     fp = fopen(filename, "r");
@@ -47,23 +46,21 @@ void caricaPersone(Persona persone[], char filename[]){
     if(fp == NULL){
         printf("errore nell'apertura del file");
     } else {
-        while(fgets(riga, DIM_RIGA, fp)){  
+        for(Persona *p = persone; p < persone + nRighe; p++){  
             campo = strtok(riga, " ");  
-            (persone + cont)->cognome = strdup(campo); 
+            p->cognome = strdup(campo); 
 
             campo = strtok(NULL, " ");
-            (persone + cont)->nome = strdup(campo);  
+            p->nome = strdup(campo);  
 
             campo = strtok(NULL, " ");
-            (persone + cont)->anno = atoi(campo);
+            p->anno = atoi(campo);
 
             campo = strtok(NULL, " ");
-            (persone + cont)->mese = atoi(campo);
+            p->mese = atoi(campo);
 
             campo = strtok(NULL, " ");
-            (persone + cont)->giorno = atoi(campo);
-
-            cont++;
+            p->giorno = atoi(campo);
         }
     }
     fclose(fp);
@@ -92,8 +89,8 @@ void ordinaPersone(Persona persone[], int nRighe) {
 }
 
 void visPersone(Persona persone[], int nRighe){
-    for(int k = 0; k < nRighe; k++){
-        printf("%s %s %d/%d/%d\n", (persone + k)->cognome, (persone + k)->nome, (persone + k)->anno, (persone + k)->mese, (persone + k)->giorno);
+    for(Persona *p = persone; p < persone + nRighe; p++){
+        printf("%s %s %d/%d/%d\n", p->cognome, p->nome, p->anno, p->mese, p->giorno);
     }
 }
 
@@ -105,7 +102,7 @@ int main(){
     
     persone = (Persona*) malloc (nRighe * sizeof(Persona));
     
-    caricaPersone(persone, filename);
+    caricaPersone(persone, filename, nRighe);
 
     ordinaPersone(persone, nRighe);
 
